@@ -20,9 +20,9 @@ stressor <- stressor %>% select(-c(year, months, start_month))
 stressor["period"] = paste0(year(stressor$time), "-", quarter(stressor$time)) 
 
 
-start_date = list(unique(stressor[['period']]))
-end_date = list(unique(stressor[['period']]))
-state = list(unique(stressor[['state']]))
+start_date = (unique(stressor[['period']]))
+end_date = (unique(stressor[['period']]))
+state = (unique(stressor[['state']]))
 
 app <- Dash$new(external_stylesheets = dbcThemes$BOOTSTRAP)
 
@@ -43,7 +43,7 @@ app$layout(
           list(
             htmlLabel('Start time'),
             dccDropdown(
-              id='start_time',
+              id='start_date',
               options = start_date,
               value='2015-1')
             )
@@ -52,7 +52,7 @@ app$layout(
           list(
             htmlLabel('End time'),
             dccDropdown(
-              id='end_time',
+              id='end_date',
               options = end_date,
               value='2015-4')
             )
@@ -65,10 +65,10 @@ app$layout(
 app$callback(
   output('plot-area', 'figure'),
   list(input('state', 'value'),
-       input('start_time', 'value'),
-       input('end_time', 'value')),
-  function(state, start_time, end_time) {
-    p <- stressor %>%  filter(state == {{state}} & (period >= {{start_time}} & period <= {{end_time}})) %>%
+       input('start_date', 'value'),
+       input('end_date', 'value')),
+  function(state, start_date, end_date) {
+    p <- stressor %>%  filter(state == {{state}} & (period >= {{start_date}} & period <= {{end_date}})) %>%
       ggplot(aes(x = period,
                  y = stress_pct,
                  fill = stressor,
