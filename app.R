@@ -34,27 +34,33 @@ app$layout(
           list(
             htmlLabel('State'),
             dccDropdown(
-              id='state',
+              id='select_state',
+              value='Alabama',
               options = state,
-              value='Alabama')
+              className = 'text-dark'
+              )
             )
           ),
         dbcCol( 
           list(
             htmlLabel('Start time'),
             dccDropdown(
-              id='start_date',
+              id='select_start_date',
+              value='2015-1',
               options = start_date,
-              value='2015-1')
+              className = 'text-dark'
+              )
             )
           ),
         dbcCol(
           list(
             htmlLabel('End time'),
             dccDropdown(
-              id='end_date',
+              id='select_end_date',
+              value='2015-4',
               options = end_date,
-              value='2015-4')
+              className = 'text-dark'
+              )
             )
           )
   )
@@ -64,9 +70,9 @@ app$layout(
 
 app$callback(
   output('plot-area', 'figure'),
-  list(input('state', 'value'),
-       input('start_date', 'value'),
-       input('end_date', 'value')),
+  list(input('select_state', 'value'),
+       input('select_start_date', 'value'),
+       input('select_end_date', 'value')),
   function(state, start_date, end_date) {
     p <- stressor %>%  filter(state == {{state}} & (period >= {{start_date}} & period <= {{end_date}})) %>%
       ggplot(aes(x = period,
