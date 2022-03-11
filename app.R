@@ -16,8 +16,8 @@ stressor['start_month'] <- stringr::str_split_fixed(stressor$months, '-', 2)[,1]
 stressor['year'] <- as.character(stressor$year)
 stressor['start_month'] <- as.integer(factor(stressor$start_month, levels = month.name))
 stressor["time"] <- paste0(stressor$year,"-",stressor$start_month,"-","01")
-stressor <- stressor |> select(-c(year, months, start_month))
-stressor["period"] = paste0(year(stressor$time), "-", quarter(stressor$time))
+stressor <- stressor %>% select(-c(year, months, start_month))
+stressor["period"] = paste0(year(stressor$time), "-", quarter(stressor$time)) 
 
 
 start_date = unique(stressor[['period']])
