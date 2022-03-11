@@ -76,9 +76,8 @@ app$callback(
                  text = stress_pct)) +
       geom_bar(position="stack", stat="identity") 
       labs(title = 'Bee colony stressors', x = 'Time period', y = 'Impacted colonies(%)')
-  ggplotly(p,  tooltip = state)
+  ggplotly(p)
   }
 )
 
-# app$run_server(debug = T)
 app$run_server(host = '0.0.0.0')
