@@ -1,7 +1,7 @@
 library(dash)
 library(dashBootstrapComponents)
-library(dashHtmlComponents)
 library(dashCoreComponents)
+library(dashHtmlComponents)
 library(ggplot2)
 library(plotly)
 library(readr)
@@ -10,9 +10,9 @@ library(stringr)
 library(lubridate)
 
 url = 'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-11/stressor.csv'
-stressor <- readr::read_csv(url)
+stressor <- read_csv(url)
 
-stressor['start_month'] <- stringr::str_split_fixed(stressor$months, '-', 2)[,1]
+stressor['start_month'] <- str_split_fixed(stressor$months, '-', 2)[,1]
 stressor['year'] <- as.character(stressor$year)
 stressor['start_month'] <- as.integer(factor(stressor$start_month, levels = month.name))
 stressor["time"] <- paste0(stressor$year,"-",stressor$start_month,"-","01")
