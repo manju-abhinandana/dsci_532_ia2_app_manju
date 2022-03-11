@@ -1,5 +1,6 @@
 library(dash)
 library(dashBootstrapComponents)
+library(dashCoreComponents)
 library(dashHtmlComponents)
 library(ggplot2)
 library(plotly)
@@ -31,7 +32,7 @@ app$layout(
       list(dccGraph(id='plot-area'),
         dbcCol(
           list(
-            htmlLabel('State'),
+            # htmlLabel('State'),
             dccDropdown(
               id='state',
               options = state,
@@ -40,7 +41,7 @@ app$layout(
           ),
         dbcCol( 
           list(
-            htmlLabel('Start time'),
+            # htmlLabel('Start time'),
             dccDropdown(
               id='start_time',
               options = start_date,
@@ -49,7 +50,7 @@ app$layout(
           ),
         dbcCol(
           list(
-            htmlLabel('End time'),
+            # htmlLabel('End time'),
             dccDropdown(
               id='end_time',
               options = end_date,
@@ -78,5 +79,5 @@ app$callback(
   ggplotly(p)
   }
 )
-
+# app$run_server(debug = T)
 app$run_server(host = '0.0.0.0')
