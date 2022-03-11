@@ -32,7 +32,7 @@ app$layout(
       list(dccGraph(id='plot-area'),
         dbcCol(
           list(
-            # htmlLabel('State'),
+            htmlLabel('State'),
             dccDropdown(
               id='state',
               options = state,
@@ -41,7 +41,7 @@ app$layout(
           ),
         dbcCol( 
           list(
-            # htmlLabel('Start time'),
+            htmlLabel('Start time'),
             dccDropdown(
               id='start_time',
               options = start_date,
@@ -50,7 +50,7 @@ app$layout(
           ),
         dbcCol(
           list(
-            # htmlLabel('End time'),
+            htmlLabel('End time'),
             dccDropdown(
               id='end_time',
               options = end_date,
