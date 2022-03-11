@@ -20,9 +20,9 @@ stressor <- stressor %>% select(-c(year, months, start_month))
 stressor["period"] = paste0(year(stressor$time), "-", quarter(stressor$time)) 
 
 
-start_date = unique(stressor[['period']])
-end_date = unique(stressor[['period']])
-state = unique(stressor[['state']])
+start_date = list(unique(stressor[['period']]))
+end_date = list(unique(stressor[['period']]))
+state = list(unique(stressor[['state']]))
 
 app <- Dash$new(external_stylesheets = dbcThemes$BOOTSTRAP)
 
@@ -62,7 +62,6 @@ app$layout(
 )
 )
 
-
 app$callback(
   output('plot-area', 'figure'),
   list(input('state', 'value'),
@@ -74,7 +73,7 @@ app$callback(
                  y = stress_pct,
                  fill = stressor,
                  text = stress_pct)) +
-      geom_bar(position="stack", stat="identity") 
+      geom_bar(position="stack", stat="identity") + 
       labs(title = 'Bee colony stressors', x = 'Time period', y = 'Impacted colonies(%)')
   ggplotly(p)
   }
