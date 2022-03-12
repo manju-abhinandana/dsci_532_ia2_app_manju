@@ -20,9 +20,9 @@ stressor <- stressor %>% select(-c(year, months, start_month))
 stressor["period"] = paste0(year(stressor$time), "-", quarter(stressor$time)) 
 
 
-start_date = (unique(stressor[['period']]))
-end_date = (unique(stressor[['period']]))
-state = (unique(stressor[['state']]))
+start_date_values = (unique(stressor[['period']]))
+end_date_values = (unique(stressor[['period']]))
+state_values = (unique(stressor[['state']]))
 
 app <- Dash$new(external_stylesheets = dbcThemes$BOOTSTRAP)
 
@@ -36,7 +36,7 @@ app$layout(
             dccDropdown(
               id='select_state',
               value='Alabama',
-              options = state,
+              options = state_values,
               className = 'text-dark'
               )
             )
@@ -47,7 +47,7 @@ app$layout(
             dccDropdown(
               id='select_start_date',
               value='2015-1',
-              options = start_date,
+              options = start_date_values,
               className = 'text-dark'
               )
             )
@@ -58,7 +58,7 @@ app$layout(
             dccDropdown(
               id='select_end_date',
               value='2015-4',
-              options = end_date,
+              options = end_date_values,
               className = 'text-dark'
               )
             )
@@ -84,5 +84,5 @@ app$callback(
   ggplotly(p)
   }
 )
-# app$run_server(debug = T)
-app$run_server(host = '0.0.0.0')
+app$run_server(debug = T)
+# app$run_server(host = '0.0.0.0')
