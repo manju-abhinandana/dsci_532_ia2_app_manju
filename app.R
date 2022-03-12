@@ -20,10 +20,6 @@ stressor <- stressor %>% select(-c(year, months, start_month))
 stressor["period"] = paste0(year(stressor$time), "-", quarter(stressor$time)) 
 
 
-start_date_values = (unique(stressor[['period']]))
-end_date_values = (unique(stressor[['period']]))
-state_values = (unique(stressor[['state']]))
-
 app <- Dash$new(external_stylesheets = dbcThemes$BOOTSTRAP)
 
 app$layout(
@@ -36,50 +32,26 @@ app$layout(
             dccDropdown(
               id='select_state',
               value='Alabama',
-              options = state_values,
-              className = 'text-dark'
+              options = unique(stressor$state %>%purrr::map(function(con) list(label = con, value = con))
               )
             )
-          ),
-        dbcCol( 
-          list(
-            htmlLabel('Start time'),
-            dccDropdown(
-              id='select_start_date',
-              value='2015-1',
-              options = start_date_values,
-              className = 'text-dark'
-              )
-            )
-          ),
-        dbcCol(
-          list(
-            htmlLabel('End time'),
-            dccDropdown(
-              id='select_end_date',
-              value='2015-4',
-              options = end_date_values,
-              className = 'text-dark'
-              )
-            )
-          )
+          
   )
 )
 )
-)
+)))
 
 app$callback(
   output('plot-area', 'figure'),
-  list(input('select_state', 'value'),
-       input('select_start_date', 'value'),
-       input('select_end_date', 'value')),
-  function(state, start_date, end_date) {
-    p <- stressor %>%  filter(state == {{state}} & (period >= {{start_date}} & period <= {{end_date}})) %>%
+  list(input('select_state', 'value')),
+  function(state) {
+    p <- stressor %>%  filter(state == {{state}}) %>%
       ggplot(aes(x = period,
                  y = stress_pct,
                  fill = stressor,
                  text = stress_pct)) +
       geom_bar(position="stack", stat="identity") + 
+      theme(axis.text.x = element_text(angle = 45)) +
       labs(title = 'Bee colony stressors', x = 'Time period', y = 'Impacted colonies(%)')
   ggplotly(p)
   }
