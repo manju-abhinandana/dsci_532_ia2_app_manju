@@ -49,7 +49,7 @@ app$layout(
       
       data <- stressor %>%  filter(state == state_arg)
       
-      plot_stressor <- data %>% ggplot(aes(x = period,
+      plot_stressor <- data %>% ggplot(aes(x = time,
                             y = stress_pct,
                             fill = stressor)) +
           geom_bar(position="stack", stat="identity") + 
@@ -60,6 +60,6 @@ app$layout(
       ggplotly(plot_stressor)
 }
 )
-  # app$run_server(debug = T)
+  app$run_server(debug = T)
 
-app$run_server(host = '0.0.0.0')
+# app$run_server(host = '0.0.0.0')
