@@ -40,26 +40,23 @@ app$layout(
 
 # Plot stressor chart
 
-  app$callback(
-    output('stressor_chart', 'figure'),
-    list(
-      input('state-widget', 'value')
-      ),
-    plot_stressor_chart <- function(state_arg) {
-      
-      data <- stressor %>%  filter(state == state_arg)
-      
-      plot_stressor <- data %>% ggplot(aes(x = time,
-                            y = stress_pct,
-                            fill = stressor)) +
-          geom_bar(position="stack", stat="identity") + 
-          theme(axis.text.x = element_text(angle = 45)) +
-          labs(title = 'Bee colony stressors', x = 'Time period', y = 'Impacted colonies(%)')
-   
-        
+app$callback(
+  output('stressor_chart', 'figure'),
+  list(
+    input('state-widget', 'value')
+    ),
+  plot_stressor_chart <- function(state_arg) {
+    data <- stressor %>%  filter(state == state_arg)
+    plot_stressor <- data %>% ggplot(aes(x = time,
+                                         y = stress_pct,
+                                         fill = stressor)) +
+      geom_bar(position="stack", stat="identity") + 
+      theme(axis.text.x = element_text(angle = 45)) +
+      labs(title = 'Bee colony stressors', x = 'Time period', y = 'Impacted colonies(%)')
+    
       ggplotly(plot_stressor)
 }
 )
-  app$run_server(debug = T)
+  # app$run_server(debug = T)
 
-# app$run_server(host = '0.0.0.0')
+app$run_server(host = '0.0.0.0')
