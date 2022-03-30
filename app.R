@@ -9,6 +9,7 @@ library(dplyr)
 library(stringr)
 library(lubridate)
 library(ggthemes)
+
 # Read in global data
 
 stressor <-  readr::read_csv("data/stressor.csv")
@@ -49,13 +50,13 @@ app$callback(
   plot_stressor_chart <- function(state_arg) {
     data <- stressor %>%  filter(state == state_arg)
     
-    plot_stressor <- data %>% ggplot(aes(x = time,y = stress_pct,
+    plot_stressor <- data %>% ggplot(aes(x = period,y = stress_pct,
                                          fill = stressor)) +
       geom_bar(position="stack", stat="identity") + 
       theme(axis.text.x = element_text(angle = 45)) +
       labs(title = 'Bee colony stressors', x = 'Time period', y = 'Impacted colonies(%)')
     
-      ggplotly(plot_stressor)
+    ggplotly(plot_stressor)
 }
 )
   # app$run_server(debug = T)
