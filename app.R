@@ -32,7 +32,11 @@ app$layout(
       dccGraph(id = "stressor_chart"),
       dccDropdown(
         id = "state-widget",
-        options = unique(stressor$state),
+        # options = unique(stressor$state),
+        options = stressor$state %>%
+          unique() %>%
+          purrr::map(function(p)
+            list(label = p, value = p)),
         value = "Alabama"
       ),
       dccDropdown(
