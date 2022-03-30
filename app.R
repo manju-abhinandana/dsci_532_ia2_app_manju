@@ -55,7 +55,7 @@ app$callback(
     
     data <- stressor %>%  filter(state == state_arg)
     
-    plot_stressor <- data %>% ggplot(aes(x = period),
+    plot_stressor <- data %>% ggplot(aes(x = period,
                                          y = stress_pct,
                                          fill = stressor)) +
       geom_bar(position="stack", stat="identity") + 
