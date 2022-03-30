@@ -10,11 +10,11 @@ library(stringr)
 library(lubridate)
 # Read in global data
 
-# stressor <-  readr::read_csv("data/stressor.csv")
-# stressor
+stressor <-  readr::read_csv("data/stressor.csv")
+stressor
 
-url = 'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-11/stressor.csv'
-stressor <- read_csv(url)
+# url = 'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-11/stressor.csv'
+# stressor <- read_csv(url)
 
 # Wrangle data
 stressor <- stressor %>%
