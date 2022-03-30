@@ -38,28 +38,6 @@ app$layout(
           purrr::map(function(p)
             list(label = p, value = p)),
         value = "Alabama"
-      ),
-      dccDropdown(
-        id = "start-date-widget",
-        options = stressor$period %>%
-          unique() %>%
-          purrr::map(function(p)
-            list(
-              label = stringr::str_replace(as.character(p), stringr::fixed("."), "Q"),
-              value = p
-            )),
-        value = 2015.1
-      ),
-      dccDropdown(
-        id = "end-date-widget",
-        options = stressor$period %>%
-          unique() %>%
-          purrr::map(function(p)
-            list(
-              label = stringr::str_replace(as.character(p), stringr::fixed("."), "Q"),
-              value = p
-            )),
-        value = 2015.4
       )
     )
   )
@@ -70,19 +48,14 @@ app$layout(
 app$callback(
   output('stressor_chart', 'figure'),
   list(
-    input('state-widget', 'value'),
-    input('start-date-widget', 'value'),
-    input('end-date-widget', 'value') 
+    input('state-widget', 'value')
   ),
-  plot_stressor_chart <- function(state_arg, start_date, end_date) {
-    start_date <- lubridate::ym(start_date)
-    end_date <- lubridate::ym(end_date)
+  plot_stressor_chart <- function(state_arg) {
+
     
-    data <- stressor %>%  filter(state == state_arg, 
-                                 lubridate::ym(period) %within% lubridate::interval(start = start_date,
-                                                                                    end = end_date))
+    data <- stressor %>%  filter(state == state_arg)
     
-    plot_stressor <- data %>% ggplot(aes(x = stringr::str_replace(as.character(period), stringr::fixed("."), "Q"),
+    plot_stressor <- data %>% ggplot(aes(x = period),
                                          y = stress_pct,
                                          fill = stressor)) +
       geom_bar(position="stack", stat="identity") + 
